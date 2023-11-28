@@ -35,7 +35,9 @@ module ActiveJob
           send_message_opts[:message_group_id] = message_group_id
         end
 
+        Rails.logger.info("Enqueueing message: #{send_message_opts}")
         msg_resp = Aws::Rails::SqsActiveJob.config.client.send_message(send_message_opts)
+        Rails.logger.info("Received response from SQS client: #{msg_resp}")
         raise 'Message not enqueued' if !msg_resp.respond_to(:message_id) || msg_resp.message_id.empty?
       ensure StandardError => e
         raise ActiveJob::EnqueueError.new(e.message)
