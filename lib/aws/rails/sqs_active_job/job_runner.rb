@@ -14,6 +14,8 @@ module Aws
 
         def run
           ActiveJob::Base.execute @job_data
+        ensure
+          ::ActiveRecord::Base.connection_handler.clear_active_connections!
         end
       end
     end
