@@ -25,7 +25,7 @@ module Aws
           return unless defined?(::ActiveRecord::Base)
 
           if ::ActiveRecord.version >= Gem::Version.new('7.1')
-            ::ActiveRecord::Base.connection_handler.clear_active_connections!(:all)
+            ::ActiveRecord::Base.connection_handler.clear_active_connections!
           else
             ::ActiveRecord::Base.clear_active_connections!
           end
